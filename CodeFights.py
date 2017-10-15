@@ -141,6 +141,32 @@ def sumInRange(nums, queries):
 
 #######################################################################################
 
+def findLongestSubarrayBySum(s, arr):
+    i, j, longest_length, temp_sum = 0,0,0,0
+    while (j<len(arr) and i <len(arr)):
+        if temp_sum < s:
+            temp_sum += arr[j]
+            j+=1
+        if temp_sum > s:
+            temp_sum -= arr[i]
+            i+=1
+        if temp_sum == s:
+            print "i:", i,"j:", j 
+            if j - i > longest_length:
+                longest_length = j - i 
+                longest_set = [i+1,j]
+            if j < len(arr):
+                temp_sum += arr[j]
+                j+=1
+    if longest_length == 0:
+        return [-1]   
+    return longest_set
+
+arr = [0,3,0]
+s=3
+findLongestSubarrayBySum(s, arr)
+
+#######################################################################################
 
 def findLongestSubarrayBySum(s, arr):
     i, j, longest_length, temp_sum = 0,0,0,0
@@ -153,14 +179,12 @@ def findLongestSubarrayBySum(s, arr):
             i+=1
         if temp_sum == s:
             print "i:", i,"j:", j 
-            if j - i + 1 > longest_length:
-                longest_length = j - i + 1
+            if j - i > longest_length:
+                longest_length = j - i 
                 longest_set = [i+1,j]
-            j += 1
-            if j <= len(arr):
-                temp_sum += arr[j-1]
-                if j == len(arr):
-                    j +=1
+            if j < len(arr):
+                temp_sum += arr[j]
+                j+=1
     if longest_length == 0:
         return [-1]   
     return longest_set
@@ -168,7 +192,4 @@ def findLongestSubarrayBySum(s, arr):
 arr = [0,3,0]
 s=3
 findLongestSubarrayBySum(s, arr)
-
-
-
 
