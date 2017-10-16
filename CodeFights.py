@@ -168,28 +168,20 @@ findLongestSubarrayBySum(s, arr)
 
 #######################################################################################
 
-def findLongestSubarrayBySum(s, arr):
-    i, j, longest_length, temp_sum = 0,0,0,0
-    while (j<len(arr) and i <len(arr)):
-        if temp_sum < s:
-            temp_sum += arr[j]
-            j+=1
-        if temp_sum > s:
-            temp_sum -= arr[i]
-            i+=1
-        if temp_sum == s:
-            print "i:", i,"j:", j 
-            if j - i > longest_length:
-                longest_length = j - i 
-                longest_set = [i+1,j]
-            if j < len(arr):
-                temp_sum += arr[j]
-                j+=1
-    if longest_length == 0:
-        return [-1]   
-    return longest_set
+def productExceptSelf(nums, m):
+    prefix_prod = [1] * len(nums)
+    suffix_prod = [1] * len(nums)
+    result = 0
+    for i in range(1,len(nums)):
+        prefix_prod[i] = (nums[i-1]*prefix_prod[i-1] )%m
+        suffix_prod[-i-1] = (nums[-i]*suffix_prod[-i] )%m
+    for i in xrange(len(nums)):
+        result += (prefix_prod[i]%m * suffix_prod[i]%m) %m
+    return result
 
-arr = [0,3,0]
-s=3
-findLongestSubarrayBySum(s, arr)
+
+
+
+
+
 
