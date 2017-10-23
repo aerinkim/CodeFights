@@ -230,6 +230,14 @@ def arrayMaxConsecutiveSum2(arr):
             sum_=0
     return result
         
+#######################################################################################
+def sumOfTwo(a, b, v):
+    a=set(a)
+    b=set(b)
+    for num in a:
+        if (v-num) in b:
+            return True
+    return False
         
       
 
