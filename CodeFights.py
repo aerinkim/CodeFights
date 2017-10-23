@@ -231,6 +231,7 @@ def arrayMaxConsecutiveSum2(arr):
     return result
         
 #######################################################################################
+
 def sumOfTwo(a, b, v):
     a=set(a)
     b=set(b)
@@ -239,5 +240,35 @@ def sumOfTwo(a, b, v):
             return True
     return False
         
-      
+
+#######################################################################################
+#More efficient method for http://www.geeksforgeeks.org/given-an-array-arr-find-the-maximum-j-i-such-that-arrj-arri/
+
+def maxIndexDiff(a):
+	i=0
+	j=len(a)-1
+	while (j-i>-len(a)):
+		if a[i]<a[j]:
+			return (j-i)
+		else:
+			if a[i]<a[j-1]:
+				return j-1-i
+			if a[i+1]<a[j]:
+				return j-(i+1)
+			else:
+				i+=1
+
+
+a=[34, 8, 10, 3, 2, 80, 30, 33, 1]
+maxIndexDiff(a)
+
+a=[9, 2, 3, 4, 5, 6, 7, 8, 18, 0]
+maxIndexDiff(a)
+
+a=[1, 2, 3, 4, 5, 6]
+maxIndexDiff(a)
+
+a=[6, 5, 4, 3, 2, 1]
+maxIndexDiff(a)
+
 
