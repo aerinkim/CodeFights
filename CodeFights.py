@@ -272,3 +272,87 @@ a=[6, 5, 4, 3, 2, 1]
 maxIndexDiff(a)
 
 
+#######################################################################################
+def non_adjacent_max_sum(a):
+	res=0
+	i=0
+	sum1=0
+	sum2=0
+
+	while (i <= len(a)-4):
+		if a[i+3]>a[i+2]+a[i+4]:
+			sum1+=a[i+3]
+			i=i+3
+		else:
+			sum1+=a[i+2]
+			i=i+2
+	if i== len(a)-3:
+		sum1+=a[-1]
+
+	i=1
+	while (i <= len(a)-4):
+		if a[i+3]>a[i+2]+a[i+4]:
+			sum2+=a[i+3]
+			i=i+3
+		else:
+			sum2+=a[i+2]
+			i=i+2
+	if i== len(a)-3:
+		sum1+=a[-1]
+
+	return max(sum1,sum2)
+
+arr = [5, 5, 10, 100, 10, 5]
+print non_adjacent_max_sum(arr)
+
+
+#######################################################################################
+
+
+def mapDecoding(digits):
+    if len(digits) == 0:
+        return 1
+    n = len(digits)
+    count = [0] * (n+1)
+    count[0] = 1
+    count[1] = 1 if int(digits[0]) >= 1 else 0
+    if len(digits) == 1:
+        return count[1] 
+    for i in range(2,n+1):
+        if (int(digits[i-1]) > 0):
+            count[i] = count[i-1]         
+        if (0 < int(digits[i-2]) < 2 or (digits[i-2] == '2' and int(digits[i-1]) < 7)):
+            count[i] *= count[i-2]            
+        count[i] = count[i] % (10**9 + 7)        
+    return count[n]
+
+#######################################################################################
+
+
+def knapsack_0_1(weight,value,weight_limit):
+	num_row = len(weight)
+	num_col = weight_limit+1
+	value_mat = [[0 for i in xrange(num_col)] for j in xrange(num_row)]
+
+	for i in range(1,num_row):
+		for w in range(1,num_col):
+			print value_mat
+			print i,w
+			if weight[i] <= w:
+				if value[i]>value_mat[i-1][w]:
+					value_mat[i][w] = value[i] + value_mat[i-1][w-weight[i]]
+				else:
+					value_mat[i][w] =value_mat[i-1][w]
+			else:
+				value_mat[i][w] = value_mat[i-1][w]
+	print value_mat
+	return value_mat[num_row -1][num_col -1]
+
+
+weight = [0,2,3,4,5]
+value = [0,3,4,5,6]
+weight_limit = 5 
+knapsack_0_1(weight,value,weight_limit)
+
+
+
