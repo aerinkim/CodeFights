@@ -339,10 +339,7 @@ def knapsack_0_1(weight,value,weight_limit):
 			print value_mat
 			print i,w
 			if weight[i] <= w:
-				if value[i]>value_mat[i-1][w]:
-					value_mat[i][w] = value[i] + value_mat[i-1][w-weight[i]]
-				else:
-					value_mat[i][w] =value_mat[i-1][w]
+				max(value[i] + value_mat[i-1][w-weight[i]], value_mat[i-1][w])
 			else:
 				value_mat[i][w] = value_mat[i-1][w]
 	print value_mat
@@ -353,6 +350,59 @@ weight = [0,2,3,4,5]
 value = [0,3,4,5,6]
 weight_limit = 5 
 knapsack_0_1(weight,value,weight_limit)
+
+
+#######################################################################################
+
+
+def logNSearchRotatedArr(arr):
+	
+
+
+
+
+weight = [0,2,3,4,5]
+value = [0,3,4,5,6]
+weight_limit = 5 
+knapsack_0_1(weight,value,weight_limit)
+
+
+
+#############################################################################
+
+"""
+The idea is to use modified binary search.
+If your arr[mid+1]>arr[mid] then your peak ALWAYS exists on the right half.
+If you arr[mid-1]>arr[mid] then your peak ALWAYS exists on the left half.
+Because arr[i+1] have only two options, either bigger than arr[i] or smaller than arr[i-1]
+"""
+
+
+def FindAPeak(arr, i, j):
+	mid = (i+j)/2
+	# if mid element is peak
+	if (mid == len(arr)-1 or arr[mid] > arr[mid+1]) and (mid == 0 or arr[mid] > arr[mid-1]):
+		return arr[mid]
+	# when your peak exists in the right half
+	if arr[mid] < arr[mid+1] and mid+1 < len(arr):
+		return FindAPeak(arr, mid+1, j)
+	# when your peak exists in the left half
+	else:
+		return FindAPeak(arr, i, mid-1)
+
+
+arr = [1,2,3,2,1]
+FindAPeak(arr, 0, len(arr)-1)
+
+
+arr = [1,2,3,4,5,6]
+FindAPeak(arr, 0, len(arr)-1)
+
+
+#############################################################################
+
+
+
 
 
 
