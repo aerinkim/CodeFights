@@ -220,26 +220,26 @@ minSubstringWithAllChars(s, t)
 #######################################################################################
 
 def arrayMaxConsecutiveSum2(arr):
-    sum_=0
-    result = -1001
-    for num in arr:
-        sum_+=num
-        if sum_>result:
-            result= sum_
-        if sum_<0:
-            sum_=0
-    return result
-        
+	sum_=0
+	result = -1001
+	for num in arr:
+		sum_+=num
+		if sum_>result:
+			result= sum_
+		if sum_<0:
+			sum_=0
+	return result
+		
 #######################################################################################
 
 def sumOfTwo(a, b, v):
-    a=set(a)
-    b=set(b)
-    for num in a:
-        if (v-num) in b:
-            return True
-    return False
-        
+	a=set(a)
+	b=set(b)
+	for num in a:
+		if (v-num) in b:
+			return True
+	return False
+		
 
 #######################################################################################
 #More efficient method for http://www.geeksforgeeks.org/given-an-array-arr-find-the-maximum-j-i-such-that-arrj-arri/
@@ -310,21 +310,21 @@ print non_adjacent_max_sum(arr)
 
 
 def mapDecoding(digits):
-    if len(digits) == 0:
-        return 1
-    n = len(digits)
-    count = [0] * (n+1)
-    count[0] = 1
-    count[1] = 1 if int(digits[0]) >= 1 else 0
-    if len(digits) == 1:
-        return count[1] 
-    for i in range(2,n+1):
-        if (int(digits[i-1]) > 0):
-            count[i] = count[i-1]         
-        if (0 < int(digits[i-2]) < 2 or (digits[i-2] == '2' and int(digits[i-1]) < 7)):
-            count[i] *= count[i-2]            
-        count[i] = count[i] % (10**9 + 7)        
-    return count[n]
+	if len(digits) == 0:
+		return 1
+	n = len(digits)
+	count = [0] * (n+1)
+	count[0] = 1
+	count[1] = 1 if int(digits[0]) >= 1 else 0
+	if len(digits) == 1:
+		return count[1] 
+	for i in range(2,n+1):
+		if (int(digits[i-1]) > 0):
+			count[i] = count[i-1]         
+		if (0 < int(digits[i-2]) < 2 or (digits[i-2] == '2' and int(digits[i-1]) < 7)):
+			count[i] *= count[i-2]            
+		count[i] = count[i] % (10**9 + 7)        
+	return count[n]
 
 #######################################################################################
 
@@ -401,8 +401,48 @@ FindAPeak(arr, 0, len(arr)-1)
 
 #############################################################################
 
+def merge(arr, l, m, r):
+	n1 = m - l + 1
+	n2 = r- m
+ 
+	L = arr[l:m+1]
+	R = arr[m+1:r+1]
+ 
+	i = 0     # Initial index of first subarray
+	j = 0     # Initial index of second subarray
+	k = l     # Initial index of merged subarray
+	print i,j,k
+	while i < n1 and j < n2 :
+		if L[i] <= R[j]:
+			arr[k] = L[i]
+			i += 1
+		else:
+			arr[k] = R[j]
+			j += 1
+		k += 1
+ 
+	while i < n1:
+		arr[k] = L[i]
+		i += 1
+		k += 1
+ 
+	while j < n2:
+		arr[k] = R[j]
+		j += 1
+		k += 1
+ 
 
-
-
-
-
+def mergeSort(arr,l,r):
+	if l < r:
+		m = (l+r)/2
+		mergeSort(arr, l, m)
+		mergeSort(arr, m+1, r)
+		merge(arr, l, m, r)
+ 
+arr = [12, 11, 13, 5, 6, 7]
+print arr
+ 
+mergeSort(arr,0,len(arr)-1)
+print arr
+ 
+#############################################################################
