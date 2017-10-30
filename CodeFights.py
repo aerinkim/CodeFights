@@ -229,6 +229,26 @@ def arrayMaxConsecutiveSum2(arr):
 		if sum_<0:
 			sum_=0
 	return result
+
+#######################################################################################
+
+def arrayMaxConsecutiveSum3(arr):
+	sum_=0
+	result = -1001
+	start_ix = 0
+	end_ix = 0
+	i = 0
+	for num in arr:
+		sum_ += num
+		if sum_>result:
+			result= sum_
+			end_ix = i
+		if sum_<0:
+			sum_=0
+			start_ix = i + 1
+		i = i+1
+	return [result, start_ix, end_ix]
+
 		
 #######################################################################################
 
@@ -411,7 +431,7 @@ def merge(arr, l, m, r):
 	i = 0     # Initial index of first subarray
 	j = 0     # Initial index of second subarray
 	k = l     # Initial index of merged subarray
-	print i,j,k
+
 	while i < n1 and j < n2 :
 		if L[i] <= R[j]:
 			arr[k] = L[i]
@@ -446,3 +466,103 @@ mergeSort(arr,0,len(arr)-1)
 print arr
  
 #############################################################################
+
+global count
+count = 0
+def merge(arr, l, m, r):
+	global count 
+	n1 = m - l + 1
+	n2 = r- m
+ 
+	L = arr[l:m+1]
+	R = arr[m+1:r+1]
+ 
+	i = 0     # Initial index of first subarray
+	j = 0     # Initial index of second subarray
+	k = l     # Initial index of merged subarray
+	print i,j,k
+	while i < n1 and j < n2 :
+		if L[i] <= R[j]:
+			arr[k] = L[i]
+			i += 1
+		else:
+			count += len(L)-i
+			arr[k] = R[j]
+			j += 1
+		k += 1
+ 
+	while i < n1:
+		arr[k] = L[i]
+		i += 1
+		k += 1
+ 
+	while j < n2:
+		arr[k] = R[j]
+		j += 1
+		k += 1
+
+
+def countInversion(arr,l,r,ct):
+	if l < r:
+		m = (l+r)/2
+		_ = countInversion(arr, l, m, ct)
+		_ = countInversion(arr, m+1, r, ct)
+		merge(arr, l, m, r)
+
+ 
+arr = [12, 11, 13, 5, 6, 7]
+countInversion(arr,0,len(arr)-1,0)
+count
+
+arr = [4, 1, 3, 2, 9, 5]
+countInversion(arr,0,len(arr)-1,0)
+ 
+##################################################################
+
+
+def fillingBlocks(n):
+	memo = {0:1, 1:1, 2:5, 3: 11}
+	for i in range(4, n+1):
+		memo[i] = memo[i-1]+5*memo[i-2]+memo[i-3]-memo[i-4]
+	return memo[n]
+
+
+##################################################################
+"""
+For nums = [-1, 0, 1, 2, 6, 7, 9], the output should be
+composeRanges(nums) = ["-1->2", "6->7", "9"].
+"""
+def composeRanges(nums):
+	runner, start, end = 0, 0, 0
+	res = []
+	while runner < len(nums):
+		end = runner
+		while runner + 1 < len(nums) and nums[runner+1] == nums[runner] + 1:
+			runner += 1
+		if runner == end:
+			res.append(str(nums[runner]))
+		else:
+			res.append("%d->%d" % (nums[start], nums[runner]))
+		start = runner +1
+		runner += 1
+	return res
+
+##################################################################
+
+def houseRobber(arr):
+	if len(arr)==0:
+		return 0
+	if len(arr)==1:
+		return arr[0]
+	presum = [0 for i in xrange(len(arr))]
+	presum[0]=arr[0]
+	for i in xrange(1,len(arr)):
+		presum[i] = max(presum[i-2] + arr[i], presum[i-1])
+	return presum[-1]
+
+nums = [1, 1, 1]
+houseRobber(nums)
+
+
+
+
