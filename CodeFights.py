@@ -564,5 +564,43 @@ nums = [1, 1, 1]
 houseRobber(nums)
 
 
+##################################################################
+def climbingStaircase(n, k):
+    res=[]
+    CSR(n,k,[],res)
+    return res
+
+def CSR(n,k,str_, res):
+    if n == 0:
+        res.append(str_)
+    else:
+        for i in range(1,k+1):
+            if n-i>=0:
+                CSR(n-i,k,str_+[i],res)
+
+
+##################################################################
+
+def climbingStaircase(n, k, wip):
+	if n == 0 :
+		print wip
+	else:
+		for i in range(1,k+1):
+			if n>=i:
+				wip.append(i)
+				climbingStaircase(n-i, k, wip)
+				wip.pop()
+
+climbingStaircase(4, 2,[])
+
+
+##################################################################
+
+
+
+
+
+
+
 
 
